@@ -28,12 +28,12 @@ void connectAWS()
     Serial.print(".wifigakkonek.");
   }
 
-  // Configure WiFiClientSecure to use the AWS IoT device credentials
+  // AWS IoT device credentials
   net.setCACert(AWS_CERT_CA);
   net.setCertificate(AWS_CERT_CRT);
   net.setPrivateKey(AWS_CERT_PRIVATE);
 
-  // Connect to the MQTT broker on the AWS endpoint we defined earlier
+  // Connect to the MQTT
   client.setServer(AWS_IOT_ENDPOINT, 8883);
 
   // Create a message handler
@@ -65,7 +65,7 @@ void publishMessage()
   doc["ldr"] = ldr;
 
   char jsonBuffer[512];
-  serializeJson(doc, jsonBuffer); // print to client
+  serializeJson(doc, jsonBuffer); 
  
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
 }
@@ -93,7 +93,7 @@ void messageHandler(char* topic, byte* payload, unsigned int length)
 void setup()
 {
   Serial.begin(115200);
-  pinMode(LED_PIN, OUTPUT); // set LED pin as output
+  pinMode(LED_PIN, OUTPUT); 
   connectAWS();
 }
 
@@ -101,7 +101,7 @@ void loop()
 {
   ldr = analogRead(LDR_PIN); 
 
-  if (isnan(ldr))  // Check if any reads failed and exit early (to try again).
+  if (isnan(ldr))  // Check if any reads failed
   {
     Serial.println(F("Failed to read from LDR sensor!"));
     return;
